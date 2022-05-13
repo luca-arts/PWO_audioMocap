@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<!--https://github.com/TakashiYoshinaga/Oculus-Quest-Interaction-Sample-->
+<head>
+  <meta charset="utf-8">
+  <title>EAR Escape Audio Room</title>
+  <meta name="description" content="EAR Escape Audio Room">
+  <!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/test.js"></script>
+</head>
+<body>
+    <a-scene physics="debug: false; gravity: 0; restitution: 0.9;" background="color: #AAAAAA">
+<!-- ##### ASSETS  ##### -->
+        <a-assets>
+            <audio id="lopulse" src="snd/EAR - LO PULSE.mp3" autoplay preload></audio>
+            <audio id="weirdchord" src="snd/EAR - WEIRD CHORDS.mp3" autoplay preload></audio>
+        </a-assets>
+
+<!-- #### WORLD #### -->
+        <a-plane  rotation="-90 0 0" width="30" height="30" color="black"></a-plane>
+
+        <a-box  color="#EF2D5E" position="0 1 -4" emitlog="color: blue" 
+            animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"
+            sound='src: snd/radar.mp3; autoplay: true;');>
+        </a-box>
+      
+        <a-box id="redbox" color="red" rotation="0 45 45" scale="2 2 2">
+            <a-sphere position="1 0 3"></a-sphere>
+        </a-box>
+        <a-light type="ambient" color="#888888"></a-light>
+      <!-- // -->
+
+
+      <a-entity id="cameraRig">
+        <a-entity id="head" camera wasd-controls look-controls position="0 1.6 0">
+          <a-box scale= "0.1 2 0.1" ></a-box>
+        </a-entity>
+        
+        <a-entity id="ctlL"
+            teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; startEvents: teleportstart; endEvents: teleportend"
+            raycaster="objects: .collidable; far:1.2; " oculus-touch-controls="hand: left" input-listen>
+            <a-text value="Trigger: shoot a ball\nGrip: Grab large object\nX: Teleport" position="0 0.08 0"
+                rotation="-90 0 0" scale="0.1 0.1 0.1" align="center" color="#FFFFFF"></a-text>
+          <a-sphere radius="0.01" position="0 0 -1.2" color="#FFFFFF"></a-sphere>
+        </a-entity>
+        <a-entity id="ctlR" raycaster="objects: .collidable; far:1.2; " oculus-touch-controls="hand: right" input-listen>
+            <a-text value="Trigger: shoot a ball\nGrip: Grab large object\nA: Remove small balls"
+                position="0 0.08 0" rotation="-90 0 0" scale="0.1 0.1 0.1" align="center" color="#FFFFFF"></a-text>
+          <a-sphere radius="0.01" position="0 0 -1.2" color="#FFFFFF"></a-sphere>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+  </html>
+
+
+
+  <!-- 1 Collision detection -->
+  <!-- 2 interactief geluid afpelen in 3D -->
+  <!-- 3 goto next room -->
