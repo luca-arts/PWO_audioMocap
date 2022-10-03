@@ -1,16 +1,16 @@
 # TechVidvan Human pose estimator
 # import necessary packages
-import mido
+# import mido
 import cv2
 import mediapipe as mp
 import random
 
 
 
-print(mido.get_output_names()) # To list the output ports
+# print(mido.get_output_names()) # To list the output ports
 
 
-outport = mido.open_output('rtpmidi:rtpmidi 128:0')
+# outport = mido.open_output('rtpmidi:rtpmidi 128:0')
 # outport = mido.open_output('Midi Through:Midi Through Port-0 14:0')
 # initialize Pose estimator
 mp_drawing = mp.solutions.drawing_utils
@@ -21,9 +21,9 @@ pose = mp_pose.Pose(
     min_tracking_confidence=0.5)
 
 # create capture object
-# cap = cv2.VideoCapture('video.mp4')
+cap = cv2.VideoCapture('video.mp4')
 
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 
 
 while cap.isOpened():
@@ -98,13 +98,13 @@ while cap.isOpened():
             frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
 
-        outport.send(mido.Message('control_change', control=20, value=msgxl))
-        outport.send(mido.Message('control_change', control=21, value=msgyl))
-        outport.send(mido.Message('control_change', control=22, value=msgzl))
+        # outport.send(mido.Message('control_change', control=20, value=msgxl))
+        # outport.send(mido.Message('control_change', control=21, value=msgyl))
+        # outport.send(mido.Message('control_change', control=22, value=msgzl))
         
-        outport.send(mido.Message('control_change', control=23, value=msgxr))
-        outport.send(mido.Message('control_change', control=24, value=msgyr))
-        outport.send(mido.Message('control_change', control=25, value=msgzr))
+        # outport.send(mido.Message('control_change', control=23, value=msgxr))
+        # outport.send(mido.Message('control_change', control=24, value=msgyr))
+        # outport.send(mido.Message('control_change', control=25, value=msgzr))
 
         # show the final output 
         cv2.imshow('Output', frame)
